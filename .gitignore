@@ -1,0 +1,10 @@
+.DS_Store
+.idea/
+.env
+.env.*
+PROJECT_CONTEXT.md
+*.local.md
+private/
+notes-private/
+__pycache__/
+*.pyc
