@@ -1,6 +1,24 @@
 # Java 全栈开发助手
 
-给有前端经验、即将直接承担 Java 全栈任务的开发者使用。仓库包含三个可安装的 Codex Skill：`java-project-onboarding` 负责新电脑、拉仓、环境与架构盘点；`java-fullstack-dev` 负责需求、Bug、实现、自测和提测；`java-change-review` 负责技术方案边界、控制过度设计和代码审查。它们不预设新公司的技术栈。
+给没有开发基础的纯小白使用。目标是让使用者借助 AI，在真实任务中写出资深前后端工程师水准的代码：定位准确、设计有边界、实现完整、验证有业务断言、审查能找到反例。仓库包含三个可安装的 Codex Skill：`java-project-onboarding` 负责新电脑、拉仓、环境与架构盘点；`java-fullstack-dev` 负责需求、Bug、实现、自测和提测；`java-change-review` 负责技术方案边界、控制过度设计和代码审查。它们不预设新公司的技术栈。
+
+一次任务是否达到可评审质量，看四件事：验收与业务不变量有独立来源；代码放在正确的调用、权限与数据边界；有针对实际风险的执行证据；交付说明能讲清未验证项。具体执行见[资深质量闭环](java-fullstack-dev/references/senior-delivery.md)；可直接使用的[分阶段 Prompt](java-fullstack-dev/references/prompt-playbook.md)提炼自实际项目的技术方案、前后端编码与 CR 提示词；通用方法见[方法沉淀](docs/2026-11-27-methodology.md)。
+
+## 提示词入口：直接复制
+
+**系统提示词（工具支持自定义时使用）：**
+
+```text
+你是一名资深全栈工程师，具备资深 Java 后端、前端开发和代码审查能力。先从目标仓库核实技术栈、项目规范与业务边界，再完成技术方案、最小实现和验证。你的协作者是纯小白；请用实际代码位置、业务断言和运行结果解释关键决策。
+```
+
+**用户提示词：**
+
+```text
+请使用 java-fullstack-dev 完成 <需求或 Bug>。我没有开发基础，请你先核对项目规则、知识库和代码版本，从用户入口追到前端、后端、数据与下游，找相邻实现并验证其正确性。把验收转成业务不变量、最小方案和测试断言；信息足够就实施。运行相关验证后审查本次 diff，报告代码位置、命令、业务结果与未覆盖风险，并解释我需要理解的关键决策。
+```
+
+分阶段可复制：[技术方案](java-fullstack-dev/references/prompt-playbook.md#1-从需求到技术方案) · [前端方案与评审回写](java-fullstack-dev/references/prompt-playbook.md#前端技术方案与评审回写) · [后端编码](java-fullstack-dev/references/prompt-playbook.md#2-按方案实现后端) · [前端编码](java-fullstack-dev/references/prompt-playbook.md#3-按契约实现前端) · [代码 CR](java-fullstack-dev/references/prompt-playbook.md#4-代码-cr) · [前端专项 CR](java-fullstack-dev/references/prompt-playbook.md#前端专项-cr-与修复循环) · [知识库 CR](java-fullstack-dev/references/prompt-playbook.md#5-知识库-cr) · [代码自测](java-fullstack-dev/references/prompt-playbook.md#6-代码自测)。文中的 `{{变量}}` 和双引号中的 "业务领域"、"项目知识库" 都是需要按当前项目填写的占位符。
 
 ## 开始使用
 
@@ -52,13 +70,15 @@ Java 概念只解释本次改动需要的部分；不要把别的项目规范套
 
 **准备发 PR：**让 AI 以当前 diff 和需求验收为依据做一次评审，重点检查后端数据权限、事务、并发、跨服务契约和测试缺口；只报告有源码证据的问题。
 
-**AI 方案看起来太复杂：**使用 [方案边界审查](java-change-review/references/design-gate.md)核对现有能力、必要改动与新增复杂度的证据。公开包内的 [代码审查 Skill](java-change-review/SKILL.md)可独立使用，并带只读 [Git 范围脚本](java-change-review/scripts/review_scope.py)。完整的私有 `code-review-test` 可在确实安装、适用且获准时按其自身规则衔接；它的源码和公司专用扩展未打包。
+**AI 方案看起来太复杂：**使用 [方案边界审查](java-change-review/references/design-gate.md)核对现有能力、必要改动与新增复杂度的证据。公开包内的 [代码审查 Skill](java-change-review/SKILL.md)可独立使用，并带只读 [Git 范围脚本](java-change-review/scripts/review_scope.py)。若目标环境另有适用的 "测试视角审查 Skill"，按其自身规则衔接。
 
 ## 内容导航
 
 | 场景 | 文档 |
 | --- | --- |
 | 收到需求或 Bug 后直接开工 | [first-task.md](java-fullstack-dev/references/first-task.md) |
+| 按阶段填写技术方案、开发与 CR Prompt | [prompt-playbook.md](java-fullstack-dev/references/prompt-playbook.md) |
+| 新手交付可评审的资深工程质量 | [senior-delivery.md](java-fullstack-dev/references/senior-delivery.md) |
 | 新电脑、克隆、JDK/Node/构建工具安装 | [day-one.md](java-project-onboarding/references/day-one.md) |
 | 确认项目版本后的 macOS/Windows 安装步骤 | [install-recipes.md](java-project-onboarding/references/install-recipes.md) |
 | 仓库架构、数据库与中间件盘点 | [architecture-intake.md](java-project-onboarding/references/architecture-intake.md) |
@@ -71,7 +91,7 @@ Java 概念只解释本次改动需要的部分；不要把别的项目规范套
 | 碰到不熟的 Java / Spring 代码时查阅 | [java-bridge.md](java-fullstack-dev/references/java-bridge.md) |
 | 本地环境与启动排障 | [environment.md](java-fullstack-dev/references/environment.md) |
 | 功能开发、测试和代码评审 | [delivery.md](java-fullstack-dev/references/delivery.md) |
-| 开发自审与可选 code-review-test 衔接 | [review-before-test.md](java-fullstack-dev/references/review-before-test.md) |
+| 开发自审与可选测试视角审查 Skill 衔接 | [review-before-test.md](java-fullstack-dev/references/review-before-test.md) |
 | 自测、PR、提测说明 | [self-test-handoff.md](java-fullstack-dev/references/self-test-handoff.md) |
 | 与已安装的 CR、用例、API/UI 测试 Skill 衔接 | [skill-routing.md](java-fullstack-dev/references/skill-routing.md) |
 | 多服务接口与事件联动 | [cross-service.md](java-fullstack-dev/references/cross-service.md) |
@@ -81,4 +101,4 @@ Java 概念只解释本次改动需要的部分；不要把别的项目规范套
 
 现有项目的 `AGENTS.md`、团队约定、代码和真实配置优先。这三个 Skill 不会把某个旧项目的 Java 8、Spring Boot 2、MyBatis-Plus、字段注入、表命名或审批流程当成普遍标准。阿里巴巴《Java 开发手册》作为检查清单和学习资料使用，不复制手册正文，也不凌驾于新团队规范之上。
 
-本仓库只收录从本机多个项目的**核心入口、索引和工作流中定向归纳**的通用做法，以及公开资料链接；源码盘点与代表性调用链用于校对方法，不等于逐文件理解全部业务实现。用户提供的私有资料用于核对“需求输入 → 开发自测 → PR/提测 → 测试”的交接形状；没有复制内部文档原文、代码、地址、账户或业务规则。公开包自带独立的方案与代码审查 Skill；原版 `code-review-test` 保持私有安装，按其自身规则作为增强。公开上传前仍应检查自己的新增内容。
+本仓库只收录从不同项目的**核心入口、索引和工作流中定向归纳**的通用做法，以及公开资料链接；源码盘点与代表性调用链用于校对方法，不等于逐文件理解全部业务实现。私有资料仅用于核对“需求输入 → 开发自测 → PR/提测 → 测试”的交接方式；没有复制内部文档原文、代码、地址、账户或业务规则。公开包自带独立的方案与代码审查 Skill；可选的外部扩展按实际安装版本和目标项目规则使用。公开上传前仍应检查自己的新增内容。

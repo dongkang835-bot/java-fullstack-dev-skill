@@ -1,6 +1,6 @@
-# 从前端到 Java / Spring：最小知识地图
+# Java / Spring：按当前任务补足的知识地图
 
-先确认目标项目版本。Java 8 + Spring Boot 2 项目可能使用 `javax.*`；Spring Boot 3+ / Spring Framework 6+ 常见 `jakarta.*`。写代码时跟随仓库实际依赖和风格，不把新教程的语法直接塞进老项目。
+先确认目标项目版本。Java 8 + Spring Boot 2 项目可能使用 `javax.*`；Spring Boot 3+ / Spring Framework 6+ 常见 `jakarta.*`。写代码时跟随仓库实际依赖和风格，不把新教程的语法直接塞进老项目。纯小白先读下方“读懂一个 Java 服务的顺序”，让 AI 用本次业务请求解释每一层；下表仅供已经熟悉前端概念的人对照。
 
 | 熟悉的前端概念 | Java 后端对应点 | 容易踩的差异 |
 | --- | --- | --- |
